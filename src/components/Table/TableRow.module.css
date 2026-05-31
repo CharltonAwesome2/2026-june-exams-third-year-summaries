@@ -1,0 +1,14 @@
+.tableCell {
+  text-align: left;
+  padding: 12px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+.tableHeadCell {
+  text-align: left;
+  padding: 12px 12px;
+  border-bottom: 2px solid var(--border);
+  font-weight: 700;
+  color: var(--accent-strong);
+}
