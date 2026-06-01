@@ -1,3 +1,4 @@
+
 # Third Year Module Summaries
 
 A comprehensive, modular study application for third-year university modules, starting with **ITS Information Systems 3: Database Systems**.
@@ -63,6 +64,14 @@ npm run build
 
 The built files will be in the `dist/` directory.
 
+### Deploy to GitHub Pages
+
+```bash
+npm run deploy
+```
+
+The site will be live at `https://CharltonAwesome2.github.io/2026-june-exams-third-year-summaries/`
+
 ### Preview Production Build
 
 ```bash
@@ -79,6 +88,7 @@ src/
 ├── components/             # Reusable UI components
 │   ├── Button/             # Tab button component
 │   ├── Card/               # Card layout components
+│   ├── ChapterContent/     # Chapter content components
 │   ├── ComparisonTable/    # Reusable comparison table component
 │   ├── PageShell/          # Page layout wrapper
 │   ├── Table/              # Table and TableRow components
@@ -88,10 +98,28 @@ src/
 │   └── its-information-systems-3/
 │       ├── index.js        # Module definition
 │       ├── welcome.js      # Module welcome content
-│       └── chapter1-6.js   # Individual chapter data
+│       └── chapter1-6.js   # Individual chapter data (1-6)
 └── styles/
     ├── global.css          # Global resets and base styles
     └── theme.css           # Dark/light CSS variables
+```
+
+## Path Aliases
+
+The project uses path aliases for cleaner imports:
+
+| Alias | Maps to |
+|-------|---------|
+| `@components/*` | `src/components/*` |
+| `@components/Card/*` | `src/components/Card/*` |
+| `@components/Button/*` | `src/components/Button/*` |
+| `@data/*` | `src/data/*` |
+| `@styles/*` | `src/styles/*` |
+
+Example:
+```jsx
+import { Card, CardHeader } from "@components/Card/Card.jsx";
+import { chapter1 } from "@data/its-information-systems-3/chapter1.js";
 ```
 
 ## Adding a New Module
@@ -99,7 +127,7 @@ src/
 1. Create a new folder under `src/data/` (e.g., `src/data/web-development-3/`)
 2. Create `index.js` exporting your module object with:
    - `id`, `name`, `description`, `icon`, `color`
-   - `welcome` object
+   - `welcome` object (with title, subtitle, description, studyTips)
    - `chapters` array
 3. Import and add your module to the `modules` array in `src/data/index.js`
 
@@ -125,7 +153,7 @@ Chapter data files are **pure JavaScript objects** – no HTML, no markdown. Eac
   keyConcepts: [...],
   additionalKeyPoints: [...],
   content: "...",
-  comparisonTable: { ... }, // optional
+  comparisonTable: { ... }, // optional, for chapter-specific comparisons
   exercises: [
     { q: "...", a: ["bullet", "points"] }
   ]
@@ -147,8 +175,14 @@ Answers are stored as **arrays** for automatic bullet-point rendering.
 |----------|------------|-------------|
 | `--bg-primary` | `#0f172a` | `#f8fafc` |
 | `--bg-secondary` | `#1e2937` | `#ffffff` |
+| `--bg-tertiary` | `#334155` | `#f1f5f9` |
+| `--bg-elevated` | `#1e2937` | `#ffffff` |
+| `--border` | `#475569` | `#e2e8f0` |
 | `--text-primary` | `#e2e8f0` | `#0f172a` |
+| `--text-secondary` | `#94a3b8` | `#475569` |
 | `--accent` | `#60a5fa` | `#3b82f6` |
+| `--radius` | `16px` | `16px` |
+| `--shadow` | `0 10px 30px rgba(0,0,0,0.3)` | `0 10px 30px rgba(0,0,0,0.08)` |
 
 ## Browser Support
 
@@ -178,4 +212,4 @@ Private – for educational use only.
 - Built with React 19 and Vite 7
 - Content based on Database Systems: Design, Implementation, and Management (10th Edition)
 - Icons via emoji (no external icon libraries)
-- **DeepSeek** – Architecture design, component implementation, content extraction, and patient assistance throughout development
+- **DeepSeek** – Architecture design, component implementation, content extraction from PDFs, and patient assistance throughout development
