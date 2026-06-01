@@ -1,0 +1,99 @@
+.bulletList {
+  padding-left: 1.25rem;
+  margin: 0;
+}
+
+.bulletList li {
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.analogyText {
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  background: var(--bg-tertiary);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  margin: 0;
+}
+
+.keyTakeawayBox {
+  background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(59, 130, 246, 0.05));
+  border-left: 4px solid var(--accent);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+}
+
+.keyTakeawayBox p {
+  margin: 0;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.contentText {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.contentText p {
+  color: var(--text-primary);
+  font-style: italic;
+}
+
+.exerciseItem {
+  background: var(--bg-tertiary);
+  padding: 18px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+}
+
+.exerciseItem p {
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.answerBtn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: var(--transition);
+}
+
+.answerBtn:hover {
+  background: var(--accent-strong);
+  transform: translateY(-1px);
+}
+
+.answerBox {
+  margin-top: 14px;
+  padding: 14px;
+  background: var(--bg-primary);
+  border-radius: 8px;
+  border-left: 4px solid var(--accent);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.answerBullets {
+  margin: 8px 0 0 20px;
+  padding-left: 0;
+}
+
+.answerBullets li {
+  margin-bottom: 6px;
+}
+
+.noExercises {
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
