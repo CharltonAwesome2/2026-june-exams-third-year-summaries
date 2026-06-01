@@ -1,5 +1,5 @@
 // chapter3.js
-
+// 
 export const chapter3 = {
   id: "its-ch-3",
   title: "Chapter 3",
@@ -22,9 +22,12 @@ export const chapter3 = {
   ],
 
   examTips: [
-    "Exam favorites: Write relational algebra expressions (know σ, π, ⨝)",
-    "Understand the difference between natural JOIN and THETA JOIN",
-    "Know why indexing is critical for performance (and its trade-offs)",
+    "Know the 8 characteristics of a relational table",
+    "Memorize key types: Superkey, Candidate, Primary, Foreign, Secondary",
+    "Understand Entity Integrity (no null PK) and Referential Integrity (FK matches existing PK or null)",
+    "Be able to write relational algebra expressions using σ (SELECT), π (PROJECT), and ⨝ (JOIN)",
+    "Understand the difference between Natural JOIN, Equijoin, and Theta JOIN",
+    "Know why indexing is critical for performance and its trade-offs",
     "Be able to identify candidate keys vs primary keys vs foreign keys",
   ],
 
@@ -40,28 +43,57 @@ export const chapter3 = {
   objectives: [
     "Understand the relational model as a logical view of data",
     "Learn about relations (tables), tuples (rows), and attributes (columns)",
-    "Explore relational operators, data dictionary, and system catalog",
-    "Understand data redundancy handling and the importance of indexing",
+    "Explore relational operators: SELECT, PROJECT, JOIN, UNION, etc.",
+    "Understand keys: superkey, candidate, primary, foreign, secondary",
+    "Learn entity integrity and referential integrity",
+    "Explore data dictionary, system catalog, and indexing",
+    "Understand data redundancy handling and indexing strategies",
   ],
 
   keyConcepts: [
-    "The relational model (E.F. Codd) provides a simple, logical view using tables, offering structural and data independence",
+    "Relational model (E.F. Codd, 1970): logical view using tables; provides structural and data independence",
     "Key elements: Relation/Table, Tuple/Row, Attribute/Column, Domain (set of allowable values)",
-    "Relational operators based on set theory: SELECT (σ), PROJECT (π), JOIN (⨝), UNION (∪), INTERSECT (∩), DIFFERENCE (-)",
+    "Table characteristics (8): 2D structure, rows=entities, columns=attributes, each intersection=one value, same format per column, domain defined, order immaterial, unique row identifier",
+    "Keys: Superkey (uniquely identifies row), Candidate (minimal superkey), Primary (chosen candidate), Foreign (matches PK in another table), Secondary (for retrieval only)",
+    "Entity integrity: No primary key attribute can be null",
+    "Referential integrity: Foreign key must either be null or match an existing primary key value",
+    "Relational algebra operators: SELECT (σ), PROJECT (π), JOIN (⨝), UNION (∪), INTERSECT (∩), DIFFERENCE (-), PRODUCT (×)",
+    "Natural join: joins on common attributes; Equijoin: equality condition; Theta join: any comparison",
+    "Inner join: only matched records; Outer join: unmatched records preserved (Left/Right/Full)",
     "Data dictionary stores metadata about tables, columns, relationships, and constraints",
-    "Indexing dramatically improves search and join performance on large tables",
+    "Index: ordered arrangement for faster access; unique indexes prevent duplicate values",
   ],
 
   additionalKeyPoints: [
-    "Student Classification Example (Table 3.2): Demonstrates how derived attributes (like classification: Fr, So, Jr, Sr) can be based on credit hours",
-    "Relational Operators: The book heavily illustrates SELECT, PROJECT, JOIN, PRODUCT, and DIFFERENCE with clear before/after table examples",
-    "Key Strength: The relational model's power comes from its mathematical foundation (set theory), making complex queries intuitive through operators",
-    "KEY HIERARCHY: Superkey (any unique identifier) → Candidate key (minimal superkey) → Primary key (chosen candidate) → Alternate key (candidates not chosen)",
-    "Composite key: key composed of multiple columns; can be candidate, primary, or foreign",
-    "Natural key: real-world identifier (e.g., ISBN, SSN, email)",
-    "Surrogate key: artificial, system-generated identifier (e.g., auto-increment ID); preeferred for stability",
-    "Secondary key: used for data retrieval/searching, not for uniqueness",
-    "Unique key: must be unique but isn't necessarily the primary key (e.g., alternate candidate keys)",
+    "Student Classification Example (Table 3.2): Demonstrates how derived attributes (Fr, So, Jr, Sr) can be based on credit hours",
+
+    "Determination: if A determines B, each value of A has exactly one value of B",
+    "Functional dependence: B is functionally dependent on A if all rows agreeing on A also agree on B",
+
+    "Relational Operators: The book heavily illustrates SELECT, PROJECT, JOIN, PRODUCT, and DIFFERENCE with before/after table examples",
+
+    "KEY HIERARCHY: Superkey → Candidate Key → Primary Key → Alternate Key",
+
+    "Superkey: any attribute(s) that uniquely identify a row",
+    "Candidate key: minimal superkey (no unnecessary attributes)",
+    "Primary key: selected candidate key used as the main row identifier",
+    "Alternate key: candidate keys not chosen as the primary key",
+    "Composite key: key composed of multiple attributes; may serve as candidate, primary, or foreign key",
+    "Natural key: real-world identifier (ISBN, SSN, email)",
+    "Surrogate key: artificial system-generated identifier (auto-increment ID); preferred for stability",
+    "Foreign key: attribute(s) that reference a primary key in another table",
+    "Unique key: must contain unique values but is not necessarily the primary key",
+    "Secondary key: used for searching/retrieval rather than uniqueness",
+
+    "Data dictionary: stores metadata including table names, attributes, formats, ranges, relationships, and constraints",
+    "Homonym: same name used for different attributes",
+    "Synonym: different names used for the same attribute",
+
+    "1:M relationship: the normal relationship structure in relational databases",
+    "1:1 relationship: relatively rare and may indicate a design issue",
+    "M:N relationship: cannot be implemented directly; requires a bridge/composite entity",
+
+    "Codd's 12 rules: define what constitutes a true relational database; few systems fully comply",
 
     "Quick Memory Trick: Superkey finds it, Candidate minimizes it, Primary chooses it, Foreign links it, Composite builds it, Natural comes from reality, Surrogate fakes it",
   ],
@@ -70,6 +102,47 @@ export const chapter3 = {
     "The relational model's power comes from its mathematical foundation in set theory, making complex queries intuitive through operators. The relational model is easier to understand than hierarchical or network models.",
 
   exercises: [
+    {
+      q: "List the 8 characteristics of a relational table.",
+      a: [
+        "Perceived as two-dimensional structure of rows and columns",
+        "Each row (tuple) represents a single entity occurrence",
+        "Each column (attribute) has a distinct name",
+        "Each row/column intersection contains a single data value",
+        "All values in a column conform to same data format",
+        "Each column has a specific domain (range of values)",
+        "Order of rows and columns is immaterial to DBMS",
+        "Each table must have a unique row identifier (primary key)",
+      ],
+    },
+    {
+      q: "Define superkey, candidate key, primary key, foreign key, and secondary key.",
+      a: [
+        "Superkey: any attribute or combination that uniquely identifies each row",
+        "Candidate key: a minimal superkey (no unnecessary attributes)",
+        "Primary key: candidate key selected as the unique identifier",
+        "Foreign key: attribute whose values match primary key values in another table",
+        "Secondary key: used only for data retrieval, not for identification",
+      ],
+    },
+    {
+      q: "What are entity integrity and referential integrity?",
+      a: [
+        "Entity integrity: No primary key attribute can be null. Every row must have a unique, non-null identifier.",
+        "Referential integrity: A foreign key must either be null OR match an existing primary key value in the related table.",
+        "These rules prevent orphaned records and maintain data consistency across tables.",
+      ],
+    },
+    {
+      q: "What is the difference between an inner join and an outer join?",
+      a: [
+        "Inner join: Returns only rows that have matching values in both tables",
+        "Outer join: Returns all rows from one table, with nulls where no match exists in the other",
+        "Left outer join: all rows from left table, matches from right",
+        "Right outer join: all rows from right table, matches from left",
+        "Full outer join: all rows from both tables",
+      ],
+    },
     {
       q: "Using a STUDENT table (STU_NUM, STU_LNAME, STU_FNAME, STU_GPA, DEPT_CODE, CLASSIFICATION), write relational algebra expressions.",
       a: [
@@ -102,7 +175,7 @@ export const chapter3 = {
       ],
     },
     {
-      q: "Why is indexing important in relational databases?",
+      q: "Why is indexing important?",
       a: [
         "Indexing dramatically improves search and join performance on large tables (O(log n) vs O(n))",
         "Without indexes, the DBMS performs full table scans for every query",
@@ -113,7 +186,7 @@ export const chapter3 = {
       ],
     },
     {
-      q: "Write relational algebra to find all students with GPA > 3.0 in the CIS department (combined operation).",
+      q: "Write relational algebra to find all students with GPA > 3.0 in the CIS department.",
       a: [
         "π STU_LNAME, STU_FNAME (σ GPA > 3.0 ∧ DEPT_CODE = 'CIS' (STUDENT))",
         "Step 1: SELECT filters rows with GPA > 3.0 AND Dept = 'CIS'",
