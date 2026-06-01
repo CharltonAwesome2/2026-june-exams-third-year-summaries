@@ -60,19 +60,30 @@ export const chapter4 = {
   
   content: "ER modeling is the foundation for conceptual database design. Crow's Foot notation is preferred for most implementation-focused work as it's widely supported in CASE tools (Lucidchart, draw.io, ER/Studio).",
   
-  comparisonTable: {
+comparisonTable: {
     title: "Chen vs Crow's Foot Notation",
     subtitle: "Comparison of ER Diagram Notations",
     badge: "Chapter 4",
     headers: ["Aspect", "Chen Notation", "Crow's Foot Notation"],
     rows: [
-      ["Entity", "Rectangle", "Rectangle"],
-      ["Attributes", "Ovals connected by lines", "Listed in attribute box below entity"],
-      ["Relationships", "Diamond shape", "Line with symbols at ends"],
-      ["Cardinality", "Numbers (1, N, M) near lines", "Crow's foot, circles, bars for (0,1,N)"],
-      ["Visual Style", "More academic, detailed", "Cleaner, implementation-oriented"],
-      ["Tool Support", "Less common in modern CASE tools", "Widely supported (Lucidchart, draw.io, etc.)"],
-      ["Best For", "Conceptual understanding", "Practical database design & implementation"]
+      ["Entity (Strong)", "Single rectangle", "Rectangle"],
+      ["Entity (Weak)", "Double rectangle (═══╦═══)", "Rectangle (relationship shows dependency)"],
+      ["Attribute (Simple)", "Single oval (───◯───)", "Listed in entity box"],
+      ["Attribute (Multivalued)", "Double oval (═══◯═══)", "No special shape — note as '(multivalued)' in text"],
+      ["Attribute (Derived)", "Dashed oval (╌╌◯╌╌)", "No special shape — note as '(derived)' in text"],
+      ["Relationship", "Diamond (◇)", "Line with symbols at ends"],
+      ["Relationship (Identifying)", "Double diamond (══◇══)", "Regular line (cardinality shows mandatory)"],
+      ["Participation (Optional)", "Single line (───)", "Circle (○) = zero"],
+      ["Participation (Mandatory/Total)", "Double line (═══)", "Vertical bar (│) = one"],
+      ["Relationship Type (Identifying vs Non-identifying)", "Solid line = identifying\nDashed line = non-identifying (rare)", "Solid line (distinguish by cardinality & PK/FK placement)"],
+      ["Cardinality Symbols", "Text labels: 1, M, N", "○ = zero (optional)\n│ = one (mandatory)\n{ = many\n○{ = zero or many\n│{ = one or many\n○│ = zero or one"],
+      ["Connectivity Example (M:N)", "STUDENT — M — (enrolls in) — N — COURSE", "STUDENT ─── ○{ ─── enrolls in ─── }○ ─── COURSE"],
+      ["Connectivity Example (1:N)", "PROFESSOR — 1 — (teaches) — N — COURSE", "PROFESSOR ─── │{ ─── teaches ─── }│ ─── COURSE"],
+      ["Connectivity Example (1:1)", "PERSON — 1 — (has) — 1 — PASSPORT", "PERSON ─── ││ ─── has ─── }○ ─── PASSPORT"],
+      ["Weak Entity Example", "EMPLOYEE (strong) — double diamond — DEPENDENT (double rect)", "EMPLOYEE ─── │{ ─── has ─── }│ ─── DEPENDENT (with composite PK)"],
+      ["Visual Style", "More academic, detailed — shapes convey meaning (double/dashed lines)", "Cleaner, implementation-oriented — symbols on line convey cardinality"],
+      ["Tool Support", "Less common in modern CASE tools (mostly academic/textbooks)", "Widely supported (Lucidchart, draw.io, ER/Studio, MySQL Workbench)"],
+      ["Best For", "Conceptual understanding, academic study, teaching ER fundamentals", "Practical database design, team communication, implementation"]
     ]
   },
   

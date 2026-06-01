@@ -4,3 +4,7 @@
   width: 100%;
   border-collapse: collapse;
 }
+
+.table td{
+    width: 15vw;
+}
