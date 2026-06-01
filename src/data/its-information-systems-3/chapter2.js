@@ -1,3 +1,5 @@
+// chapter2.js
+
 export const chapter2 = {
   id: "its-ch-2",
   title: "Chapter 2",

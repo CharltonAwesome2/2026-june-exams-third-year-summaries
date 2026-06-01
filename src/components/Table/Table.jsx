@@ -1,3 +1,5 @@
+// Table.jsx
+
 import styles from "./Table.module.css";
 
 export default function Table({ children }) {

@@ -1,3 +1,5 @@
+// ComparisonTable.jsx
+
 import Table from "../Table/Table.jsx";
 import TableRow from "../Table/TableRow.jsx";
 import { Card, CardHeader, CardBody } from "../Card/Card.jsx";

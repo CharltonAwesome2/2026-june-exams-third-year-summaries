@@ -1,3 +1,5 @@
+// Button.jsx
+
 import styles from "./Button.module.css";
 
 export default function Button({ children, active = false, onClick, type = "button" }) {

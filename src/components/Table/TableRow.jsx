@@ -1,3 +1,5 @@
+// TableRow.jsx
+
 import styles from "./TableRow.module.css";
 
 export default function TableRow({ children, head = false }) {

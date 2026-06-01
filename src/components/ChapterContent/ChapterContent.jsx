@@ -1,3 +1,5 @@
+// ChapterContent.jsx
+
 import React from "react";
 import ContextCard from "./ContextCard.jsx";
 import AnalogyCard from "./AnalogyCard.jsx";
@@ -24,7 +26,7 @@ export default function ChapterContent({ chapter }) {
       <ObjectivesCard items={chapter.objectives} />
       <KeyConceptsCard items={chapter.keyConcepts} contentText={chapter.content} />
       <AdditionalPointsCard items={chapter.additionalKeyPoints} />
-      
+
       {chapter.comparisonTable && (
         <ComparisonTable
           title={chapter.comparisonTable.title}
@@ -34,7 +36,7 @@ export default function ChapterContent({ chapter }) {
           rows={chapter.comparisonTable.rows}
         />
       )}
-      
+
       <ExercisesCard exercises={chapter.exercises} />
     </div>
   );

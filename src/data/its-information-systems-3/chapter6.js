@@ -1,66 +1,86 @@
+// chapter6.js
+
 export const chapter6 = {
   id: "its-ch-6",
   title: "Chapter 6",
   subtitle: "Normalization of Database Tables",
   badge: "Normalization",
-  
+
   contextAndPrerequisites: [
     "Prerequisite: Chapter 3 (relational tables), Chapter 4 (ER design)",
     "This chapter answers: 'My tables work, but are they OPTIMAL? How do I fix them if they're not?'",
-    "Connects to: Real-world database tuning, denormalization for performance"
+    "Connects to: Real-world database tuning, denormalization for performance",
   ],
-  
-  realWorldAnalogy: "Normalization is like organizing a messy desk. You start with everything in one pile (denormalized). Then you sort: papers go in one folder, pens in a cup, sticky notes in a drawer (1NF). Then you make sure each item has one logical home (2NF). Then you remove redundancies (3NF). The desk is now tidy, but finding a pen takes walking to the drawer — sometimes you leave a pen on the desk (denormalize) for convenience, accepting a little mess for speed.",
-  
+
+  realWorldAnalogy:
+    "Normalization is like organizing a messy desk. You start with everything in one pile (denormalized). Then you sort: papers go in one folder, pens in a cup, sticky notes in a drawer (1NF). Then you make sure each item has one logical home (2NF). Then you remove redundancies (3NF). The desk is now tidy, but finding a pen takes walking to the drawer — sometimes you leave a pen on the desk (denormalize) for convenience, accepting a little mess for speed.",
+
   commonMisconceptions: [
     "MISCONCEPTION: Higher normal form is always better → TRUTH: 3NF is usually sufficient. BCNF and 4NF are rarely needed. Over-normalization can hurt performance with too many joins",
     "MISCONCEPTION: Normalization is separate from ER modeling → TRUTH: They work together. A good ERD reduces the normalization work needed",
-    "MISCONCEPTION: Denormalization is 'wrong' → TRUTH: Denormalization is a valid performance strategy for read-heavy systems like data warehouses"
+    "MISCONCEPTION: Denormalization is 'wrong' → TRUTH: Denormalization is a valid performance strategy for read-heavy systems like data warehouses",
   ],
-  
+
   examTips: [
     "Exam favorites: Take a denormalized table and normalize it to 3NF step by step",
     "Be able to identify which normal form a table violates and why",
     "Know the three anomalies: Insertion, Update, Deletion — give examples of each",
-    "Understand when denormalization makes sense (data warehouses, reporting, heavy read loads)"
+    "Understand when denormalization makes sense (data warehouses, reporting, heavy read loads)",
   ],
-  
-  keyTakeaway: "Normalization removes redundancy and anomalies. 3NF is the sweet spot for most applications. Denormalize only when you have a proven performance problem and a clear use case.",
-  
+
+  keyTakeaway:
+    "Normalization removes redundancy and anomalies. 3NF is the sweet spot for most applications. Denormalize only when you have a proven performance problem and a clear use case.",
+
   furtherConnections: [
     "Links to Chapter 3: Normalization ensures relational tables are well-structured",
     "Links to Chapter 4: Good ER design reduces normalization work",
-    "Links to advanced topics: Denormalization in data warehousing (star schemas, snowflake schemas)"
+    "Links to advanced topics: Denormalization in data warehousing (star schemas, snowflake schemas)",
   ],
-  
+
   objectives: [
     "Understand normalization and its role in design",
     "Learn normal forms: 1NF, 2NF, 3NF, BCNF, 4NF",
     "Transform tables to higher normal forms",
     "Use normalization alongside ER modeling",
-    "Know when to denormalize for performance"
+    "Know when to denormalize for performance",
   ],
-  
+
   keyConcepts: [
-    "1NF: No repeating groups, atomic values",
-    "2NF: 1NF + no partial dependencies (non-key attributes fully dependent on entire primary key)",
-    "3NF: 2NF + no transitive dependencies (no non-key attribute dependent on another non-key)",
-    "BCNF (Boyce-Codd): Stronger version of 3NF",
-    "4NF: Handles multi-valued dependencies",
-    "Normalization addresses insertion, update, and deletion anomalies",
-    "Denormalization trades controlled redundancy for query performance (common in data warehouses)"
+    "1NF (First Normal Form): No repeating groups, atomic values. Bad: Student(101, 'John', 'Math,History') → Good: (101,'John','Math'), (101,'John','History')",
+
+    "2NF (Second Normal Form): 1NF + no partial dependencies. Bad: Enrollment(StudentID, CourseCode, StudentName, Grade) where StudentName depends only on StudentID (not the whole PK) → Good: Student(StudentID, StudentName) and Enrollment(StudentID, CourseCode, Grade)",
+
+    "3NF (Third Normal Form): 2NF + no transitive dependencies. Bad: Order(OrderID, CustomerID, CustomerName) where CustomerName depends on CustomerID (not OrderID) → Good: Customer(CustomerID, CustomerName) and Order(OrderID, CustomerID)",
+
+    "Partial Dependency: Non-key attribute depends on only PART of composite PK. Example: (StudentID, CourseCode) → StudentName (StudentName needs only StudentID)",
+
+    "Transitive Dependency: A → B, B → C, so A → C indirectly. Example: StudentID → DeptID → DeptHead",
+
+    "Functional Dependency: A determines B (each A has exactly one B). Example: StudentID → StudentName",
+
+    "Insertion Anomaly: Cannot add data without unrelated data. Example: Can't add course CS101 without a student enrolled",
+
+    "Update Anomaly: Same data duplicated across rows. Example: Changing instructor name requires updating every course row",
+
+    "Deletion Anomaly: Deleting one thing loses other data. Example: Deleting last student for CS101 loses the course",
+
+    "Denormalization: Adding redundancy for performance (reads faster, writes slower). Example: Storing ProductName in OrderLine to avoid JOIN",
+
+    "BCNF (Boyce-Codd): Every determinant must be a candidate key (stricter than 3NF)",
+
+    "4NF (Fourth Normal Form): No independent multivalued dependencies. Example: Employee having phone numbers AND emails independently",
   ],
-  
   additionalKeyPoints: [
     "Conversion Process to 1NF: 1) Eliminate repeating groups, 2) Identify primary key (often composite), 3) Map all functional dependencies",
     "Data Anomalies addressed by normalization: Insertion, Update, and Deletion anomalies",
     "Final Normalized Example (Figure 6.6): The book shows a complete normalized set for a construction company with PROJECT, JOB, ASSIGNMENT, and EMPLOYEE tables",
     "Important Trade-off Reminder: 'The highest level of normalization is not always the most desirable'",
-    "When to Denormalize: For performance in read-heavy systems (e.g., data warehouses). Controlled redundancy can dramatically improve query speed"
+    "When to Denormalize: For performance in read-heavy systems (e.g., data warehouses). Controlled redundancy can dramatically improve query speed",
   ],
-  
-  content: "The highest level of normalization is not always the most desirable. For most business applications, 3NF is sufficient. Combine normalization with ER modeling for robust designs. Normalization and ER modeling are used together for robust designs.",
-  
+
+  content:
+    "The highest level of normalization is not always the most desirable. For most business applications, 3NF is sufficient. Combine normalization with ER modeling for robust designs. Normalization and ER modeling are used together for robust designs.",
+
   exercises: [
     {
       q: "Normalize the following table to 3NF: StudentID, StudentName, CourseCode, CourseName, Instructor, Grade",
@@ -69,8 +89,8 @@ export const chapter6 = {
         "Step 2 - Identify functional dependencies: StudentID → StudentName, CourseCode → (CourseName, Instructor), (StudentID, CourseCode) → Grade",
         "Step 3 - 2NF: Remove partial dependencies → Student(StudentID, StudentName) and Enrollment(StudentID, CourseCode, Grade)",
         "Step 4 - 3NF: Remove transitive dependency CourseCode → CourseName, Instructor → Course(CourseCode, CourseName, Instructor)",
-        "Final tables: Student(StudentID, StudentName), Course(CourseCode, CourseName, Instructor), Enrollment(StudentID, CourseCode, Grade)"
-      ]
+        "Final tables: Student(StudentID, StudentName), Course(CourseCode, CourseName, Instructor), Enrollment(StudentID, CourseCode, Grade)",
+      ],
     },
     {
       q: "What types of anomalies (insertion, update, deletion) could occur in an unnormalized Student-Course table? Give examples.",
@@ -78,8 +98,8 @@ export const chapter6 = {
         "Insertion anomaly: Cannot add a new course without a student enrolled (e.g., cannot record 'CS101 exists' until someone registers)",
         "Update anomaly: Changing an instructor's name requires updating every row where that course appears (risk of inconsistency)",
         "Deletion anomaly: Deleting the last enrolled student for a course loses all course information (e.g., remove Alice, lose CS101 data entirely)",
-        "Solution: Normalize into separate Student, Course, and Enrollment tables to eliminate these anomalies"
-      ]
+        "Solution: Normalize into separate Student, Course, and Enrollment tables to eliminate these anomalies",
+      ],
     },
     {
       q: "In a high-traffic e-commerce website, would you denormalize the Order and Product tables? Explain reasoning and trade-offs.",
@@ -89,8 +109,8 @@ export const chapter6 = {
         "Trade-off 2: Storage increases due to redundant data (e.g., product name stored in each OrderLine)",
         "Trade-off 3: Update anomalies - changing a product's name requires updating all historical orders (or keeping old name)",
         "Recommended approach: Keep normalized for OLTP (order processing), denormalize for OLAP (reporting/analytics)",
-        "Strategy: Use materialized views or ETL to reporting tables rather than denormalizing source tables"
-      ]
+        "Strategy: Use materialized views or ETL to reporting tables rather than denormalizing source tables",
+      ],
     },
     {
       q: "Explain the data anomalies addressed by normalization. When might you choose to denormalize?",
@@ -98,8 +118,8 @@ export const chapter6 = {
         "Insertion anomaly: Cannot add data without other related data present",
         "Update anomaly: Same data duplicated across multiple rows, requiring multiple updates",
         "Deletion anomaly: Deleting one piece of data accidentally loses other unrelated data",
-        "When to denormalize: Read-heavy systems (data warehouses, reporting databases), Performance-critical applications with complex joins, Aggregation-heavy queries (sum, count, average on large datasets)"
-      ]
+        "When to denormalize: Read-heavy systems (data warehouses, reporting databases), Performance-critical applications with complex joins, Aggregation-heavy queries (sum, count, average on large datasets)",
+      ],
     },
     {
       q: "What is the difference between a partial dependency and a transitive dependency?",
@@ -108,8 +128,8 @@ export const chapter6 = {
         "Example: In (StudentID, CourseCode) → StudentName, this is partial because StudentName only needs StudentID",
         "Transitive dependency: A non-key attribute depends on another non-key attribute (not directly on the primary key)",
         "Example: StudentID → DeptID, DeptID → DeptHead (DeptHead depends on DeptID, which depends on StudentID)",
-        "2NF eliminates partial dependencies; 3NF eliminates transitive dependencies"
-      ]
+        "2NF eliminates partial dependencies; 3NF eliminates transitive dependencies",
+      ],
     },
     {
       q: "Take a denormalized table with repeating groups for projects and employees and normalize it to 3NF. Show each step.",
@@ -118,8 +138,8 @@ export const chapter6 = {
         "1NF: Create separate rows for each project → EmployeeProject(EmpID, ProjectID, Name, ProjectName)",
         "2NF: Remove partial dependency (Name depends only on EmpID, not ProjectID) → Employee(EmpID, Name) and Assignment(EmpID, ProjectID)",
         "3NF: Remove transitive dependency (ProjectName depends on ProjectID) → Project(ProjectID, ProjectName) and Assignment(EmpID, ProjectID)",
-        "Final: Employee(EmpID, Name), Project(ProjectID, ProjectName), Assignment(EmpID, ProjectID, Hours, Role)"
-      ]
-    }
-  ]
+        "Final: Employee(EmpID, Name), Project(ProjectID, ProjectName), Assignment(EmpID, ProjectID, Hours, Role)",
+      ],
+    },
+  ],
 };

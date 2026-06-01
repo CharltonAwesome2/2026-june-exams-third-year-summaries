@@ -1,3 +1,5 @@
+// index.js
+
 import { itsWelcome } from "./welcome.js";
 import { chapter1 } from "./chapter1.js";
 import { chapter2 } from "./chapter2.js";

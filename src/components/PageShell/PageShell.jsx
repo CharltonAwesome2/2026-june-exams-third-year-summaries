@@ -1,3 +1,5 @@
+// PageShell.jsx
+
 import styles from "./PageShell.module.css";
 
 export default function PageShell({ children, title, subtitle, badge }) {

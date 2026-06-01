@@ -1,3 +1,5 @@
+// AnalogyCard.jsx
+
 import { Card, CardHeader, CardBody } from "@components/Card/Card.jsx";
 import styles from "./ChapterContent.module.css";
 

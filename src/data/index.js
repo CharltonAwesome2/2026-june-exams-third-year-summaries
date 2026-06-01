@@ -1,3 +1,5 @@
+// index.js
+
 import { itsModule } from "./its-information-systems-3/index.js";
 
 // Registry of all third-year modules
