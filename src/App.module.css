@@ -91,6 +91,12 @@
   color: var(--text-primary);
 }
 
+.chapterList p,
+.studyTips p,
+.recommendations p{
+    color: var(--text-primary);
+}
+
 .modulesNote {
   color: var(--text-muted);
   font-size: 0.9rem;

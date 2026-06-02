@@ -12,12 +12,69 @@ import "./styles/global.css";
 import "./styles/theme.css";
 import styles from "./App.module.css";
 
+// WelcomeContent component to avoid duplication
+function WelcomeContent({ module, showAllChapters = false }) {
+  const chaptersToShow = showAllChapters 
+    ? module.chapters 
+    : module.chapters.filter((c) => !c.id.includes("welcome"));
+
+  return (
+    <Card>
+      <CardHeader title="Welcome" subtitle={module.welcome.description} />
+      <CardBody>
+        <p className={styles.lead}>
+          Select a chapter from the tabs above to view detailed summaries, key concepts, and exam-style
+          practice questions.
+        </p>
+        <div className={styles.chapterList}>
+          <p>
+            <strong>📚 Chapters in this module:</strong>
+          </p>
+          <ul>
+            {chaptersToShow.map((ch) => (
+              <li key={ch.id}>
+                <strong>{ch.title}:</strong> {ch.subtitle}
+              </li>
+            ))}
+          </ul>
+        </div>
+        {module.welcome.overallRecommendations && (
+          <div className={styles.recommendations}>
+            <p>
+              <strong>💡 Overall Recommendations:</strong>
+            </p>
+            <ul>
+              {module.welcome.overallRecommendations.map((rec, idx) => (
+                <li key={idx}>{rec}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {module.welcome.studyTips && (
+          <div className={styles.studyTips}>
+            <p>
+              <strong>📖 Study Tips:</strong>
+            </p>
+            <ul>
+              {module.welcome.studyTips.map((tip, idx) => (
+                <li key={idx}>{tip}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </CardBody>
+    </Card>
+  );
+}
+
 export default function App() {
   const [selectedModuleId, setSelectedModuleId] = useState(null);
   const [activeTab, setActiveTab] = useState(null);
 
   const selectedModule = modules.find((m) => m.id === selectedModuleId);
   const activeChapter = selectedModule?.chapters.find((ch) => ch.id === activeTab) || selectedModule?.chapters[0];
+
+  const showWelcomePage = !activeTab && selectedModule?.welcome;
 
   const toggleAnswer = (index) => {
     setExpanded((prev) => ({ ...prev, [index]: !prev[index] }));
@@ -27,7 +84,7 @@ export default function App() {
 
   const handleSelectModule = (moduleId) => {
     setSelectedModuleId(moduleId);
-    setActiveTab(null); // Will default to first chapter (welcome)
+    setActiveTab(null);
   };
 
   const handleBackToModules = () => {
@@ -98,7 +155,13 @@ export default function App() {
           <Button
             key={chapter.id}
             active={activeTab === chapter.id || (!activeTab && chapter === selectedModule.chapters[0])}
-            onClick={() => setActiveTab(chapter.id)}
+            onClick={() => {
+              if (activeTab === chapter.id) {
+                setActiveTab(null);
+              } else {
+                setActiveTab(chapter.id);
+              }
+            }}
           >
             {chapter.title}
           </Button>
@@ -106,58 +169,28 @@ export default function App() {
       </nav>
 
       <main className={styles.content}>
-        <PageShell title={activeChapter.title} subtitle={activeChapter.subtitle} badge={activeChapter.badge}>
-          {isWelcome ? (
-            <>
-              <Card>
-                <CardHeader title="Welcome" subtitle={selectedModule.welcome.description} />
-                <CardBody>
-                  <p className={styles.lead}>
-                    Select a chapter from the tabs above to view detailed summaries, key concepts, and exam-style
-                    practice questions.
-                  </p>
-                  <div className={styles.chapterList}>
-                    <p>
-                      <strong>📚 Chapters in this module:</strong>
-                    </p>
-                    <ul>
-                      {selectedModule.chapters
-                        .filter((c) => !c.id.includes("welcome"))
-                        .map((ch, idx) => (
-                          <li key={ch.id}>
-                            <strong>{ch.title}:</strong> {ch.subtitle}
-                          </li>
-                        ))}
-                    </ul>
-                  </div>
-                  {selectedModule.welcome.overallRecommendations && (
-                    <div className={styles.recommendations}>
-                      <p>
-                        <strong>💡 Overall Recommendations:</strong>
-                      </p>
-                      <ul>
-                        {selectedModule.welcome.overallRecommendations.map((rec, idx) => (
-                          <li key={idx}>{rec}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  {selectedModule.welcome.studyTips && (
-                    <div className={styles.studyTips}>
-                      <p>
-                        <strong>📖 Study Tips:</strong>
-                      </p>
-                      <ul>
-                        {selectedModule.welcome.studyTips.map((tip, idx) => (
-                          <li key={idx}>{tip}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </CardBody>
-              </Card>
-            </>
-          ) : (
+        {showWelcomePage ? (
+          <PageShell 
+            title="Welcome" 
+            subtitle={selectedModule.welcome.subtitle} 
+            badge={selectedModule.welcome.badge || "Start Here"}
+          >
+            <WelcomeContent module={selectedModule} showAllChapters={true} />
+          </PageShell>
+        ) : isWelcome ? (
+          <PageShell 
+            title={activeChapter.title} 
+            subtitle={activeChapter.subtitle} 
+            badge={activeChapter.badge}
+          >
+            <WelcomeContent module={selectedModule} showAllChapters={false} />
+          </PageShell>
+        ) : (
+          <PageShell 
+            title={activeChapter.title} 
+            subtitle={activeChapter.subtitle} 
+            badge={activeChapter.badge}
+          >
             <div className={styles.chapterContent}>
               {/* Context & Prerequisites */}
               {activeChapter.contextAndPrerequisites && (
@@ -280,7 +313,7 @@ export default function App() {
                 </Card>
               )}
 
-              {/* Comparison Table (Chapter 4 specific) */}
+              {/* Comparison Table */}
               {activeChapter.comparisonTable && (
                 <ComparisonTable
                   title={activeChapter.comparisonTable.title}
@@ -326,8 +359,8 @@ export default function App() {
                 </CardBody>
               </Card>
             </div>
-          )}
-        </PageShell>
+          </PageShell>
+        )}
       </main>
     </div>
   );

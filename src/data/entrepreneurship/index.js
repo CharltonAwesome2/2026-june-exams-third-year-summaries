@@ -7,7 +7,7 @@ import { ideaValidation } from "./idea-validation.js";
 import { understandingBusiness } from "./understanding-business.js";
 import { raisingCapital } from "./raising-capital.js";
 import { financeEssentials } from "./finance-essentials.js";
-// import { blockchainBasics } from "./blockchain-basics.js";
+import { blockchainBasics } from "./blockchain-basics.js";
 
 export const entrepreneurshipModule = {
   id: "entrepreneurship",
@@ -23,6 +23,6 @@ export const entrepreneurshipModule = {
     understandingBusiness,
     raisingCapital,
     financeEssentials,
-    // blockchainBasics
+    blockchainBasics
   ]
 };
