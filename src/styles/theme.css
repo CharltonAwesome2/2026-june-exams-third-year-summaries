@@ -1,5 +1,3 @@
-/* theme.css */
-
 :root {
   /* Dark theme (default) */
   --bg-primary: #0f172a;
@@ -17,6 +15,11 @@
   --radius: 16px;
   --radius-sm: 12px;
   --transition: all 0.2s ease;
+  
+  /* Code block variables */
+  --code-bg: #1e1e1e;
+  --code-text: #d4d4d4;
+  --bg-hover: rgba(255, 255, 255, 0.05);
 }
 
 [data-theme="light"] {
@@ -32,4 +35,9 @@
   --accent-strong: #2563eb;
   --accent-hover: #1d4ed8;
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  
+  /* Code block variables - light theme */
+  --code-bg: #f5f5f5;
+  --code-text: #1e1e1e;
+  --bg-hover: rgba(0, 0, 0, 0.05);
 }

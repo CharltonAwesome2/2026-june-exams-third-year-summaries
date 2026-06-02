@@ -1,0 +1,43 @@
+/* ComponentTable.module.css */
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.componentTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.componentTable th {
+  text-align: left;
+  padding: 12px 16px;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border);
+}
+
+.componentTable td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+  vertical-align: top;
+}
+
+.componentName {
+  font-weight: 600;
+  color: var(--accent);
+  font-family: 'Fira Code', monospace;
+  white-space: nowrap;
+}
+
+.componentExamples {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.85rem;
+}
+
+.componentTable tr:hover td {
+  background: var(--bg-hover);
+}

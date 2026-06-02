@@ -1,0 +1,46 @@
+/* LayerCard.module.css */
+
+.layersContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.layerItem {
+  border-left: 3px solid var(--accent);
+  padding-left: 16px;
+}
+
+.layerHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.layerName {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--accent);
+  font-family: 'Fira Code', monospace;
+}
+
+.layerArrow {
+  color: var(--text-tertiary);
+  font-size: 1.2rem;
+}
+
+.layerResponsibilities {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.layerResponsibilities li {
+  margin: 6px 0;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.layerResponsibilities li strong {
+  color: var(--text-primary);
+}

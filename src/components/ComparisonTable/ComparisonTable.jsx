@@ -2,7 +2,7 @@
 
 import Table from "../Table/Table.jsx";
 import TableRow from "../Table/TableRow.jsx";
-import { Card, CardHeader, CardBody } from "../Card/Card.jsx";
+import { Card, CardHeader, CardBody } from "@components/Card/Card.jsx";
 import styles from "./ComparisonTable.module.css";
 
 export default function ComparisonTable({ title, subtitle, badge, headers, rows }) {

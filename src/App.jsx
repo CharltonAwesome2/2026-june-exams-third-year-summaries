@@ -7,6 +7,10 @@ import { Card, CardBody, CardHeader } from "./components/Card/Card.jsx";
 import ComparisonTable from "./components/ComparisonTable/ComparisonTable.jsx";
 import ThemeToggle from "./components/ThemeToggle/ThemeToggle.jsx";
 import { modules } from "./data/index.js";
+import CodeBlock from "./components/CodeBlock/CodeBlock.jsx";
+import ComponentTable from "./components/ComponentTable/ComponentTable.jsx";
+import AnnotationTable from "./components/AnnotationTable/AnnotationTable.jsx";
+import LayerCard from "./components/LayerCard/LayerCard.jsx";
 
 import "./styles/global.css";
 import "./styles/theme.css";
@@ -14,17 +18,15 @@ import styles from "./App.module.css";
 
 // WelcomeContent component to avoid duplication
 function WelcomeContent({ module, showAllChapters = false }) {
-  const chaptersToShow = showAllChapters 
-    ? module.chapters 
-    : module.chapters.filter((c) => !c.id.includes("welcome"));
+  const chaptersToShow = showAllChapters ? module.chapters : module.chapters.filter((c) => !c.id.includes("welcome"));
 
   return (
     <Card>
       <CardHeader title="Welcome" subtitle={module.welcome.description} />
       <CardBody>
         <p className={styles.lead}>
-          Select a chapter from the tabs above to view detailed summaries, key concepts, and exam-style
-          practice questions.
+          Select a chapter from the tabs above to view detailed summaries, key concepts, and exam-style practice
+          questions.
         </p>
         <div className={styles.chapterList}>
           <p>
@@ -170,27 +172,19 @@ export default function App() {
 
       <main className={styles.content}>
         {showWelcomePage ? (
-          <PageShell 
-            title="Welcome" 
-            subtitle={selectedModule.welcome.subtitle} 
+          <PageShell
+            title="Welcome"
+            subtitle={selectedModule.welcome.subtitle}
             badge={selectedModule.welcome.badge || "Start Here"}
           >
             <WelcomeContent module={selectedModule} showAllChapters={true} />
           </PageShell>
         ) : isWelcome ? (
-          <PageShell 
-            title={activeChapter.title} 
-            subtitle={activeChapter.subtitle} 
-            badge={activeChapter.badge}
-          >
+          <PageShell title={activeChapter.title} subtitle={activeChapter.subtitle} badge={activeChapter.badge}>
             <WelcomeContent module={selectedModule} showAllChapters={false} />
           </PageShell>
         ) : (
-          <PageShell 
-            title={activeChapter.title} 
-            subtitle={activeChapter.subtitle} 
-            badge={activeChapter.badge}
-          >
+          <PageShell title={activeChapter.title} subtitle={activeChapter.subtitle} badge={activeChapter.badge}>
             <div className={styles.chapterContent}>
               {/* Context & Prerequisites */}
               {activeChapter.contextAndPrerequisites && (
@@ -321,6 +315,51 @@ export default function App() {
                   badge={activeChapter.comparisonTable.badge}
                   headers={activeChapter.comparisonTable.headers}
                   rows={activeChapter.comparisonTable.rows}
+                />
+              )}
+
+              {/* Code Examples - Programming Module (array support) */}
+              {activeChapter.codeExamples &&
+                activeChapter.codeExamples.map((example, idx) => (
+                  <CodeBlock key={idx} title={example.description} language={example.language} code={example.code} />
+                ))}
+
+              {/* Backward compatibility for single codeExample */}
+              {activeChapter.codeExample && !activeChapter.codeExamples && (
+                <CodeBlock
+                  title={activeChapter.codeExample.description}
+                  language={activeChapter.codeExample.language}
+                  code={activeChapter.codeExample.code}
+                />
+              )}
+
+              {/* Component Table - DDD Components */}
+              {activeChapter.componentTable && (
+                <ComponentTable
+                  title={activeChapter.componentTable.title}
+                  subtitle={activeChapter.componentTable.subtitle}
+                  badge={activeChapter.componentTable.badge}
+                  components={activeChapter.componentTable.components}
+                />
+              )}
+
+              {/* Annotation Table - Spring Annotations */}
+              {activeChapter.annotationTable && (
+                <AnnotationTable
+                  title={activeChapter.annotationTable.title}
+                  subtitle={activeChapter.annotationTable.subtitle}
+                  badge={activeChapter.annotationTable.badge}
+                  annotations={activeChapter.annotationTable.annotations}
+                />
+              )}
+
+              {/* Layer Card - DDD Layer Responsibilities */}
+              {activeChapter.layerCard && (
+                <LayerCard
+                  title={activeChapter.layerCard.title}
+                  subtitle={activeChapter.layerCard.subtitle}
+                  badge={activeChapter.layerCard.badge}
+                  layers={activeChapter.layerCard.layers}
                 />
               )}
 
