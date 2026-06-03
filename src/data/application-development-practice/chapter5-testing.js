@@ -230,15 +230,5 @@ export const dddTesting = {
         "Write many domain tests because they catch business rule bugs quickly.",
       ],
     },
-    {
-      q: "Write a domain test for a Product class...",
-      a: [
-        {
-          type: "code",
-          language: "java",
-          code: `@Test\nvoid reduceStock_throwsExceptionWhenInsufficientStock() {\n    Product product = new Product(new ProductId("PROD-001"), "Laptop", new Money(1000), 5);\n    assertThrows(IllegalStateException.class, () -> product.reduceStock(10));\n}\n\n@Test\nvoid reduceStock_reducesStockWhenSufficient() {\n    // ... rest of code\n}`,
-        },
-      ],
-    },
   ],
 };
