@@ -343,3 +343,83 @@
   text-align: center;
   padding: 20px;
 }
+
+.codeSection {
+  margin-bottom: 2rem;
+}
+
+.codeHeaderWithToggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--card-bg);
+  padding: 1rem 1.25rem;
+  border-radius: 8px 8px 0 0;
+  border: 1px solid var(--border-color);
+  margin-bottom: 0;
+}
+
+.codeHeaderWithToggle h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.toggleBtn {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.toggleBtn:hover {
+  background-color: var(--primary-hover);
+}
+
+.codeSection {
+  margin-bottom: 1rem;
+}
+
+.codeHeaderWithToggle {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1rem;
+}
+
+.codeHeaderWithToggle button {
+  min-width: 120px;
+}
+
+.codeSection {
+  margin-bottom: 2rem;
+}
+
+.codeToggleTop {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.75rem 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.codeToggleBottom {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 0;
+  margin-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.codeToggleTop button,
+.codeToggleBottom button {
+  min-width: 140px;
+}
+
+/* Optional: Make bottom button slightly different */
+.codeToggleBottom button {
+  background-color: var(--secondary-color, #666);
+}

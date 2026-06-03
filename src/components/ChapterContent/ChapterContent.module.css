@@ -99,3 +99,83 @@
   text-align: center;
   padding: 20px;
 }
+
+/* ChapterContent.module.css - add these styles */
+
+.exerciseItem {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+}
+
+.exerciseItem:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.questionText {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.answerBtn {
+  background: var(--primary-light, #e0e7ff);
+  color: var(--primary-dark, #1e40af);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.answerBtn:hover {
+  background: var(--primary, #3b82f6);
+  color: white;
+}
+
+.answerBox {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--code-bg, #1e1e2e);
+  border-radius: 0.5rem;
+  border-left: 4px solid var(--primary, #3b82f6);
+}
+
+.answerBox > strong {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: var(--primary-light, #93c5fd);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.answerBullets {
+  margin: 0.5rem 0 0 1.5rem;
+  padding: 0;
+}
+
+.answerBullets li {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.codeAnswerItem {
+  margin: 0.75rem 0;
+  list-style: none;
+}
+
+.codeAnswerItem > div {
+  margin: 0;
+}
+
+.noExercises {
+  color: var(--text-muted, #6b7280);
+  font-style: italic;
+  text-align: center;
+  padding: 2rem;
+}

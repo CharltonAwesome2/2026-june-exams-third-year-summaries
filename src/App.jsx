@@ -72,6 +72,8 @@ function WelcomeContent({ module, showAllChapters = false }) {
 export default function App() {
   const [selectedModuleId, setSelectedModuleId] = useState(null);
   const [activeTab, setActiveTab] = useState(null);
+  const [expandedAnswers, setExpandedAnswers] = useState({});
+  const [expandedCode, setExpandedCode] = useState({});
 
   const selectedModule = modules.find((m) => m.id === selectedModuleId);
   const activeChapter = selectedModule?.chapters.find((ch) => ch.id === activeTab) || selectedModule?.chapters[0];
@@ -318,11 +320,48 @@ export default function App() {
                 />
               )}
 
-              {/* Code Examples - Programming Module (array support) */}
+              {/* Code Examples - Programming Module */}
               {activeChapter.codeExamples &&
-                activeChapter.codeExamples.map((example, idx) => (
-                  <CodeBlock key={idx} title={example.description} language={example.language} code={example.code} />
-                ))}
+                activeChapter.codeExamples.map((example, idx) => {
+                  const codeKey = `code-${idx}`;
+                  const isExpanded = expandedCode[codeKey] || false;
+
+                  return (
+                    <Card key={idx}>
+                      <CardHeader title={example.description} meta={example.language?.toUpperCase()} />
+                      <CardBody>
+                        <div className={styles.codeSection}>
+                          {/* Top Toggle Button */}
+                          <div className={styles.codeToggleTop}>
+                            <button
+                              onClick={() => setExpandedCode((prev) => ({ ...prev, [codeKey]: !prev[codeKey] }))}
+                              className={styles.answerBtn}
+                            >
+                              {isExpanded ? "Hide Code" : "Show Code"}
+                            </button>
+                          </div>
+
+                          {/* Code Content */}
+                          {isExpanded && (
+                            <>
+                              <CodeBlock language={example.language} code={example.code} />
+
+                              {/* Bottom Toggle Button */}
+                              <div className={styles.codeToggleBottom}>
+                                <button
+                                  onClick={() => setExpandedCode((prev) => ({ ...prev, [codeKey]: !prev[codeKey] }))}
+                                  className={styles.answerBtn}
+                                >
+                                  Hide Code ▲
+                                </button>
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      </CardBody>
+                    </Card>
+                  );
+                })}
 
               {/* Backward compatibility for single codeExample */}
               {activeChapter.codeExample && !activeChapter.codeExamples && (
@@ -377,14 +416,27 @@ export default function App() {
                       </button>
                       {expanded[index] && (
                         <div className={styles.answerBox}>
-                          <strong>Answer:</strong>
+                          <strong>Model Answer:</strong>
                           <br />
                           {Array.isArray(ex.a) ? (
-                            <ul className={styles.answerBullets}>
-                              {ex.a.map((point, i) => (
-                                <li key={i}>{point}</li>
-                              ))}
-                            </ul>
+                            ex.a.map((item, i) => (
+                              <div key={i} className={styles.answerItem}>
+                                {typeof item === "string" ? (
+                                  <p>{item}</p>
+                                ) : item.text ? (
+                                  <p>{item.text}</p>
+                                ) : item.code ? (
+                                  <CodeBlock
+                                    // title={item.title || `Solution ${i + 1}`}
+                                    title={item.title || `Solution`}
+                                    language={item.language || "java"}
+                                    code={item.code}
+                                  />
+                                ) : (
+                                  <p>{JSON.stringify(item)}</p> // fallback
+                                )}
+                              </div>
+                            ))
                           ) : (
                             <p>{ex.a}</p>
                           )}
