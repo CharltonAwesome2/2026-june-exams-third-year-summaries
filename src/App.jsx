@@ -11,6 +11,7 @@ import CodeBlock from "./components/CodeBlock/CodeBlock.jsx";
 import ComponentTable from "./components/ComponentTable/ComponentTable.jsx";
 import AnnotationTable from "./components/AnnotationTable/AnnotationTable.jsx";
 import LayerCard from "./components/LayerCard/LayerCard.jsx";
+import ImageCard from "./components/ImageCard/ImageCard.jsx";
 
 import "./styles/global.css";
 import "./styles/theme.css";
@@ -371,6 +372,19 @@ export default function App() {
                   code={activeChapter.codeExample.code}
                 />
               )}
+
+              {/* Images / Screenshots - Project Setup Guide */}
+              {activeChapter.images &&
+                activeChapter.images.map((img, idx) => (
+                  <ImageCard
+                    key={idx}
+                    stepNumber={img.stepNumber}
+                    title={img.title}
+                    description={img.description}
+                    imageSrc={img.imageSrc}
+                    imageAlt={img.imageAlt}
+                  />
+                ))}
 
               {/* Component Table - DDD Components */}
               {activeChapter.componentTable && (

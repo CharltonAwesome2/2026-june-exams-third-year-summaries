@@ -16,6 +16,7 @@ import CodeBlock from "../CodeBlock/CodeBlock.jsx";
 import ComponentTable from "../ComponentTable/ComponentTable.jsx";
 import AnnotationTable from "../AnnotationTable/AnnotationTable.jsx";
 import LayerCard from "../LayerCard/LayerCard.jsx";
+import ImageCard from "../ImageCard/ImageCard.jsx";
 import styles from "./ChapterContent.module.css";
 
 export default function ChapterContent({ chapter }) {
@@ -30,6 +31,19 @@ export default function ChapterContent({ chapter }) {
       <ObjectivesCard items={chapter.objectives} />
       <KeyConceptsCard items={chapter.keyConcepts} contentText={chapter.content} />
       <AdditionalPointsCard items={chapter.additionalKeyPoints} />
+
+      {/* Images / Screenshots */}
+      {chapter.images &&
+        chapter.images.map((img, idx) => (
+          <ImageCard
+            key={idx}
+            stepNumber={img.stepNumber}
+            title={img.title}
+            description={img.description}
+            imageSrc={img.imageSrc}
+            imageAlt={img.imageAlt}
+          />
+        ))}
 
       {/* New programming-specific components */}
       {chapter.codeExample && !chapter.codeExamples && (
