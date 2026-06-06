@@ -159,7 +159,9 @@ export default function App() {
         {selectedModule.chapters.map((chapter) => (
           <Button
             key={chapter.id}
-            active={activeTab === chapter.id || (!activeTab && chapter === selectedModule.chapters[0])}
+            active={
+              !showWelcomePage && (activeTab === chapter.id || (!activeTab && chapter === selectedModule.chapters[0]))
+            }
             onClick={() => {
               if (activeTab === chapter.id) {
                 setActiveTab(null);
